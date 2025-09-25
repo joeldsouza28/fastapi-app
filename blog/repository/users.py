@@ -7,7 +7,8 @@ from fastapi import HTTPException, status
 
 def create(db: Session, request: UserSchema):
     hashed_password = Hash().encrypt(password=request.password)
-    data = {"password": hashed_password, **request.model_dump()}
+    data = {**request.model_dump()}
+    data["password"] = hashed_password
     new_user = User(**data)
 
     db.add(new_user)
@@ -19,7 +20,8 @@ def create(db: Session, request: UserSchema):
 def get(db: Session, id: int):
     user = db.query(User).where(User.id == id).first()
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
-    
-    return user
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
 
+    return user
