@@ -12,6 +12,8 @@ WORKDIR /app
 
 COPY requirements.txt /app/requirements.txt
 
+COPY nginx/nginx.conf /etc/ngin/conf.d/
+
 RUN pip install -r requirements.txt
 
 COPY . /app/

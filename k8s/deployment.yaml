@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-app-deployment
+  labels:
+    app: fastapi-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-app
+  template:
+    metadata:
+      labels:
+        app: fastapi-app
+    spec:
+      containers:
+      - name: fastapi-app
+        image: ghcr.io/joeldsouza28/fastapi-app:latest
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: ghcr-auth
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-app-service
+spec:
+  selector:
+    app: fastapi-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP
+
