@@ -5,7 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-  - name: Checkout Repo
-    uses: actions/checkout@v4
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
