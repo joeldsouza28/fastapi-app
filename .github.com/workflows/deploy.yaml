@@ -1,0 +1,11 @@
+name: Deploy Fastapi App
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+  - name: Checkout Repo
+    uses: actions/checkout@v4
